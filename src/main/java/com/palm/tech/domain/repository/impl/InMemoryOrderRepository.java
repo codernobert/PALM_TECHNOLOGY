@@ -41,7 +41,7 @@ public class InMemoryOrderRepository implements OrderRepository{
 	 
 	 private long saveShippingDetail(ShippingDetail shippingDetail) {
 	    long addressId = saveAddress(shippingDetail.getShippingAddress());
-	    String SQL = "INSERT INTO SHIPPING_DETAIL(NAME,SHIPPING_DATE,SHIPPING_ADDRESS_ID) " + "VALUES (:name, :shippingDate, :addressId)";
+	    String SQL = "INSERT INTO shipping_detail(NAME,SHIPPING_DATE,SHIPPING_ADDRESS_ID) " + "VALUES (:name, :shippingDate, :addressId)";
 	    Map<String, Object> params = new HashMap<String, Object>();
 	    params.put("name", shippingDetail.getName());
 	    params.put("shippingDate", shippingDetail.getShippingDate());
@@ -54,7 +54,7 @@ public class InMemoryOrderRepository implements OrderRepository{
 	 
 	 private long saveCustomer(Customer customer) {
 	    long addressId = saveAddress(customer.getBillingAddress());
-	    String SQL = "INSERT INTO CUSTOMER(NAME,PHONE_NUMBER,BILLING_ADDRESS_ID) " + "VALUES (:name, :phoneNumber, :addressId)";
+	    String SQL = "INSERT INTO customer(NAME,PHONE_NUMBER,BILLING_ADDRESS_ID) " + "VALUES (:name, :phoneNumber, :addressId)";
 	    Map<String, Object> params = new HashMap<String, Object>();
 	    params.put("name", customer.getName());
 	    params.put("phoneNumber", customer.getPhoneNumber());
@@ -67,7 +67,7 @@ public class InMemoryOrderRepository implements OrderRepository{
 	 }
 	 
 	 private long saveAddress(Address address) {
-	   String SQL = "INSERT INTO ADDRESS(DOOR_NO,STREET_NAME,AREA_NAME,STATE,COUNTRY,ZIP) " + "VALUES (:doorNo, :streetName, :areaName, :state,:country, :zip)";
+	   String SQL = "INSERT INTO address(DOOR_NO,STREET_NAME,AREA_NAME,STATE,COUNTRY,ZIP) " + "VALUES (:doorNo, :streetName, :areaName, :state,:country, :zip)";
        Map<String, Object> params = new HashMap<String, Object>();
        params.put("doorNo", address.getDoorNo());
        params.put("streetName", address.getStreetName());
@@ -83,7 +83,7 @@ public class InMemoryOrderRepository implements OrderRepository{
     }
 
 	 private long createOrder(Order order) {
-       String SQL = "INSERT INTO ORDERS(CART_ID,CUSTOMER_ID,SHIPPING_DETAIL_ID) " + "VALUES (:cartId, :customerId, :shippingDetailId)";
+       String SQL = "INSERT INTO orders(CART_ID,CUSTOMER_ID,SHIPPING_DETAIL_ID) " + "VALUES (:cartId, :customerId, :shippingDetailId)";
        Map<String, Object> params = new HashMap<String, Object>();
        params.put("id", order.getOrderId());
        params.put("cartId", order.getCart().getId());

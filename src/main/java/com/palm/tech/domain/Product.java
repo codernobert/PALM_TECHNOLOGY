@@ -21,6 +21,8 @@ public class Product implements Serializable{
 			 private boolean discontinued;
 			 private MultipartFile productManual;
 			 
+			 private MultipartFile productImage;
+			 
 			 public Product() {
 				super();
 				// TODO Auto-generated constructor stub
@@ -152,5 +154,13 @@ public class Product implements Serializable{
 			 + ((productId == null) ? 0 :
 			 productId.hashCode());
 			 return result;
-			 }		 
+			 }
+
+			public MultipartFile getProductImage() {
+				return productImage;
+			}
+
+			public void setProductImage(MultipartFile productImage) {
+				this.productImage = productImage;
+			}		 
 }

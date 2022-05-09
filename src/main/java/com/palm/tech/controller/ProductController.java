@@ -18,7 +18,6 @@ import com.palm.tech.domain.Product;
 import com.palm.tech.service.ProductService;
 
 @Controller
-@RequestMapping("market")
 public class ProductController {
 	
 	@Autowired
@@ -40,7 +39,7 @@ public class ProductController {
 	@RequestMapping("/update/stock")
 	 public String updateStock(Model model) {
 	 productService.updateAllStock();
-	 return "redirect:/market/products";
+	 return "redirect:/products";
 	 }
 	
 	@RequestMapping(value = "/products/add", method = RequestMethod.GET)
@@ -53,18 +52,29 @@ public class ProductController {
 	@RequestMapping(value = "/products/add", method = RequestMethod.POST)
 	public String processAddNewProductForm(@ModelAttribute("newProduct")  Product newProduct, HttpServletRequest request) {
       
-		MultipartFile productManual = newProduct.getProductManual();
-		String rootDirectory = request.getSession().getServletContext().getRealPath("/");
-		 if (productManual!=null && !productManual.isEmpty()) {
-		   try {
-		         productManual.transferTo(new File(rootDirectory+"resources/pdf/"+ newProduct.getProductId() + ".pdf"));
-		       } catch (Exception e) {
-		             throw new RuntimeException("Product Manual saving failed", e);
-		         }
-		 }	
+		
+		MultipartFile productImage = newProduct.getProductImage();
+		 String rootDirectory = request.getSession().getServletContext().getRealPath("/");
+		 if (productImage!=null && !productImage.isEmpty()) {
+		    try {
+		          productImage.transferTo(new File(rootDirectory+"resources/images/"+ newProduct.getProductId() + ".jpg"));
+		        } catch (Exception e) {
+		             throw new RuntimeException("Product Image saving failed", e);
+		          }
+		 }
+	
+		//MultipartFile productManual = newProduct.getProductManual();
+		//String rootDirectory = request.getSession().getServletContext().getRealPath("/");
+		 //if (productManual!=null && !productManual.isEmpty()) {
+		   //try {
+		         //productManual.transferTo(new File(rootDirectory+"resources/pdf/"+ newProduct.getProductId() + ".pdf"));
+		      // } catch (Exception e) {
+		            // throw new RuntimeException("Product Manual saving failed", e);
+		         //}
+		// }	
 		
 	  productService.addProduct(newProduct);
-	  return "redirect:/market/products";
+	  return "redirect:/products";
 	}
 	
 	@RequestMapping("/product")

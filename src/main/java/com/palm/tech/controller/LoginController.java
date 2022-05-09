@@ -12,9 +12,4 @@ public class LoginController {
 	  return "login";
 	}
 	
-	@RequestMapping(value = "/loginC", method = RequestMethod.GET)
-	public String logC() {
-	  return "loginC";
-	}
-	
 }

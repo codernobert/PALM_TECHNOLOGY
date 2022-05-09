@@ -22,7 +22,7 @@ public class InMemoryProductRepository implements ProductRepository{
 
 	@Override
 	public void addProduct(Product product) {
-		String SQL = "INSERT INTO PRODUCTS (ID, NAME, DESCRIPTION, UNIT_PRICE, MANUFACTURER, CATEGORY,STATE, UNITS_IN_STOCK, UNITS_IN_ORDER, DISCONTINUED) VALUES (:id, :name, :desc, :price,:manufacturer, :category, :state, :inStock, :inOrder, :discontinued)";
+		String SQL = "INSERT INTO products (ID, NAME, DESCRIPTION, UNIT_PRICE, MANUFACTURER, CATEGORY,STATE, UNITS_IN_STOCK, UNITS_IN_ORDER, DISCONTINUED) VALUES (:id, :name, :desc, :price,:manufacturer, :category, :state, :inStock, :inOrder, :discontinued)";
 		 Map<String, Object> params = new HashMap<>();
 		 params.put("id", product.getProductId());
 		 params.put("name", product.getName());
@@ -68,7 +68,7 @@ public class InMemoryProductRepository implements ProductRepository{
 
 	@Override
 	public void updateStock(String productId, long noOfUnits) {
-		String SQL = "UPDATE PRODUCTS SET UNITS_IN_STOCK =:unitsInStock WHERE ID = :id";
+		String SQL = "UPDATE products SET UNITS_IN_STOCK =:unitsInStock WHERE ID = :id";
 		Map<String, Object> params = new HashMap<>();
 		params.put("unitsInStock", noOfUnits);
 		params.put("id", productId);
@@ -78,7 +78,7 @@ public class InMemoryProductRepository implements ProductRepository{
 
 	@Override
 	public List<Product> getProductsByCategory(String category) {
-		String SQL = "SELECT * FROM PRODUCTS WHERE CATEGORY = :category";
+		String SQL = "SELECT * FROM products WHERE CATEGORY = :category";
 	    Map<String, Object> params = new HashMap<String, Object>();
 		params.put("category", category);
 		return jdbcTemplate.query(SQL, params, new ProductMapper());
@@ -87,7 +87,7 @@ public class InMemoryProductRepository implements ProductRepository{
 
 	@Override
 	public Product getProductById(String productID) {
-		String SQL = "SELECT * FROM PRODUCTS WHERE ID = :id";
+		String SQL = "SELECT * FROM products WHERE ID = :id";
 		 Map<String, Object> params = new HashMap<String, Object>();
 		 params.put("id", productID);
 		 return jdbcTemplate.queryForObject(SQL, params, new ProductMapper());

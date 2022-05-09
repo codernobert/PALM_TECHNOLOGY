@@ -10,26 +10,30 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.palm.tech.domain.User;
 import com.palm.tech.service.LoginService;
+import com.palm.tech.service.ProductService;
 
 @Controller
-@RequestMapping(value = "/customerLogin")
 public class UserLoginController {
+
+	@Autowired
+	 private ProductService productService;
 	
 	@Autowired
 	private LoginService loginService;
-	
+
+
+	//LOGIN OPERATIONS
 	@RequestMapping("/customerLogin")
-	public String welcome2bn(Model model) {
-	model.addAttribute("greeting", "Welcome to Palm Store!");
-	model.addAttribute("tagline", "The one and only amazing tech store");
-	return "customerLogin";
+	public String log(Model model) {
+		model.addAttribute("customerLogin",productService.getAllProducts());
+	    return "customerLogin";
 	}
 	
 	@RequestMapping(value = "/customerLogin", method = RequestMethod.POST)
 	public ModelAndView customer12Login(@RequestParam("email") String email, @RequestParam("password") String password) {
 
 		ModelAndView mv = new ModelAndView();
-        
+
 		User user = new User();
 		user.setEmail(email);
 		user.setPassword(password);
@@ -37,7 +41,6 @@ public class UserLoginController {
 		String name = loginService.loginUser(user);
 
 		if (name != null) {
-			mv.addObject("msg", "Welcome " + name + ", You have successfully logged in.");
 			mv.setViewName("/products");
 
 		} else {

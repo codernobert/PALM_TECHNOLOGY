@@ -21,4 +21,11 @@ model.addAttribute("tagline", "The one and only amazing tech store");
 return "welcome";
 }
 
+@RequestMapping("/jsPrac")
+public String jsPrac22(Model model) {
+return "jsPrac";
+}
+
+
+
 }

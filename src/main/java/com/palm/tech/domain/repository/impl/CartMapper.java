@@ -27,7 +27,7 @@ public class CartMapper  implements RowMapper<Cart>{
 	 throws SQLException {
 	 String id = rs.getString("ID");
 	 Cart cart = new Cart(id);
-	 String SQL = String.format("SELECT * FROM CART_ITEM WHERE CART_ID = '%s'", id);
+	 String SQL = String.format("SELECT * FROM cart_item WHERE CART_ID = '%s'", id);
 			 List<CartItem> cartItems = jdbcTempleate.query(SQL, cartItemMapper);
 			 cart.setCartItems(cartItems);
 			 return cart;
